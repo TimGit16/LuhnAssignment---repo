@@ -39,8 +39,34 @@ def validatePostalCode():
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
-def validateCreditCard():
-    pass    # Remove this pass statement and add your own code below
+def validateCreditCard(cardNum):
+    z = 0
+    for k in cardNum:
+        z+=1
+    if z < 9:
+        return False
+    initialNum = cardNum[::-1]
+    sum1 = 0
+    x = 0
+    for i in initialNum:
+        if x % 2 == 0:
+            sum1 += int(initialNum[x])
+        x += 1
+    sum2 = 0
+    y = 0
+    for j in initialNum:
+        if y % 2 != 0:
+            if int(initialNum[y])*2 < 9:
+                sum2 += int(initialNum[y])*2
+            else:
+                tempNum = str(int(initialNum[y])*2)
+                sum2 += int(tempNum[0]) + int(tempNum[1])
+        y += 1
+    sumT = str(sum1 + sum2)
+    if sumT[-1] == "0":
+        return True
+    else:
+        return False
 
 '''
     This function is to be edited to achieve the task.
