@@ -3,6 +3,10 @@
 # created yourself
 
 # More packages may be imported in the space below if approved by your instructor
+import os
+print(os.getcwd())
+folder = os.getcwd()
+fileName = folder + "\\LuhnAssignment---repo\\postal_codes.csv"
 
 def printMenu():
     print('''
@@ -30,15 +34,16 @@ def enterCustomerInfo():
     You may place as many or as few parameters as needed
     This function may also be broken down further depending on your algorithm/approach
 '''
-def validatePostalCode():
-    pass    # Remove this pass statement and add your own code below
+def validatePostalCode(code):
+    file = open(fileName, "r")
+    for i in file:
+        if i[:3] == code:
+            file.close()
+            return True
+    file.close()
+    return False
 
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
+
 def validateCreditCard(cardNum):
     z = 0
     for k in cardNum:
@@ -68,12 +73,7 @@ def validateCreditCard(cardNum):
     else:
         return False
 
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
+
 def generateCustomerDataFile():
     pass    # Remove this pass statement and add your own code below
 
