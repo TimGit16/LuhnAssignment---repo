@@ -86,7 +86,7 @@ def validateCreditCard(cardNum):
 def generateCustomerDataFile(firstName, lastName, cityName, postalCode, creditCard):
     NameOfFile = str(input("Enter name of file: "))
     fileLocation = str(input("Enter location of file: "))
-    fileName = fileLocation+NameOfFile+".txt"
+    fileName = fileLocation+NameOfFile+".csv"
     try:
         userFile = open(fileName, "a")
         userFile.writelines(firstName+"|"+lastName+"|"+cityName+"|"+postalCode+"|"+creditCard+"\n")
