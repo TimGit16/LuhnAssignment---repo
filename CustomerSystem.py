@@ -3,9 +3,6 @@
 # created yourself
 
 # More packages may be imported in the space below if approved by your instructor
-import os
-print(os.getcwd())
-folder = os.getcwd()
 
 def printMenu():
     print('''
@@ -18,12 +15,7 @@ def printMenu():
           Enter menu option (1-9)
           ''')
 
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
+
 def enterCustomerInfo():
     global fName
     global lName
@@ -46,13 +38,6 @@ def enterCustomerInfo():
         print("Invalid credit card number. Try again.\n")
     
 
-
-'''
-    This function is to be edited to achieve the task.
-    It is your decision to make this function a procedural or functional type
-    You may place as many or as few parameters as needed
-    This function may also be broken down further depending on your algorithm/approach
-'''
 def validatePostalCode(code):
     PCfile = open("postal_codes.csv", "r")
     for i in PCfile:
