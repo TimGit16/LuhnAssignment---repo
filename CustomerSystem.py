@@ -85,7 +85,8 @@ def validateCreditCard(cardNum):
 
 def generateCustomerDataFile(firstName, lastName, cityName, postalCode, creditCard):
     NameOfFile = str(input("Enter name of file: "))
-    fileName = NameOfFile+".txt"
+    fileLocation = str(input("Enter location of file: "))
+    fileName = fileLocation+NameOfFile+".txt"
     try:
         userFile = open(fileName, "a")
         userFile.writelines(firstName+"|"+lastName+"|"+cityName+"|"+postalCode+"|"+creditCard+"\n")
@@ -128,6 +129,9 @@ while userInput != exitCondition:
     elif userInput == generateCustomerOption: 
         # Only the line below may be editted based on the parameter list and how you design the method return
         generateCustomerDataFile(fName,lName, city, pCode, ccNum)
+
+    elif userInput == exitCondition:
+        continue
 
     else:
         print("Please type in a valid option (A number from 1-9)")
