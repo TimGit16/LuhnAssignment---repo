@@ -6,7 +6,6 @@
 import os
 print(os.getcwd())
 folder = os.getcwd()
-fileName = folder + "\\LuhnAssignment---repo\\postal_codes.csv"
 
 def printMenu():
     print('''
@@ -26,7 +25,27 @@ def printMenu():
     This function may also be broken down further depending on your algorithm/approach
 '''
 def enterCustomerInfo():
-    pass    # Remove this pass statement and add your own code below
+    global fName
+    global lName
+    global city
+    global pCode
+    global ccNum
+
+    fName = str(input("Enter first name: "))
+    lName = str(input("Enter last name: "))
+    city = str(input("Enter city name: "))
+    while True:
+        pCode = str(input("Enter postal code: "))
+        if validatePostalCode(pCode):
+            break
+        print("Invalid postal code. Try again.\n")
+    while True:
+        ccNum = str(input("Enter credit card number: "))
+        if validateCreditCard(ccNum):
+            break
+        print("Invalid credit card number. Try again.\n")
+    
+
 
 '''
     This function is to be edited to achieve the task.
@@ -35,47 +54,61 @@ def enterCustomerInfo():
     This function may also be broken down further depending on your algorithm/approach
 '''
 def validatePostalCode(code):
-    file = open(fileName, "r")
-    for i in file:
+    PCfile = open("postal_codes.csv", "r")
+    for i in PCfile:
         if i[:3] == code:
-            file.close()
+            PCfile.close()
             return True
-    file.close()
+    PCfile.close()
     return False
 
 
 def validateCreditCard(cardNum):
-    z = 0
-    for k in cardNum:
-        z+=1
-    if z < 9:
+    try:
+        int(cardNum)
+    except:
         return False
-    initialNum = cardNum[::-1]
-    sum1 = 0
-    x = 0
-    for i in initialNum:
-        if x % 2 == 0:
-            sum1 += int(initialNum[x])
-        x += 1
-    sum2 = 0
-    y = 0
-    for j in initialNum:
-        if y % 2 != 0:
-            if int(initialNum[y])*2 < 9:
-                sum2 += int(initialNum[y])*2
-            else:
-                tempNum = str(int(initialNum[y])*2)
-                sum2 += int(tempNum[0]) + int(tempNum[1])
-        y += 1
-    sumT = str(sum1 + sum2)
-    if sumT[-1] == "0":
-        return True
     else:
-        return False
+        z = 0
+        for k in cardNum:
+            z+=1
+        if z < 9:
+            return False
+        initialNum = cardNum[::-1]
+        sum1 = 0
+        x = 0
+        for i in initialNum:
+            if x % 2 == 0:
+                sum1 += int(initialNum[x])
+            x += 1
+        sum2 = 0
+        y = 0
+        for j in initialNum:
+            if y % 2 != 0:
+                if int(initialNum[y])*2 < 9:
+                    sum2 += int(initialNum[y])*2
+                else:
+                    tempNum = str(int(initialNum[y])*2)
+                    sum2 += int(tempNum[0]) + int(tempNum[1])
+            y += 1
+        sumT = str(sum1 + sum2)
+        if sumT[-1] == "0":
+            return True
+        else:
+            return False
 
 
-def generateCustomerDataFile():
-    pass    # Remove this pass statement and add your own code below
+def generateCustomerDataFile(firstName, lastName, cityName, postalCode, creditCard):
+    NameOfFile = str(input("Enter name of file: "))
+    fileName = NameOfFile+".txt"
+    try:
+        userFile = open(fileName, "a")
+        userFile.writelines(firstName+"|"+lastName+"|"+cityName+"|"+postalCode+"|"+creditCard+"\n")
+    except:
+        userFile = open(fileName, "w")
+        userFile.writelines(firstName+"|"+lastName+"|"+cityName+"|"+postalCode+"|"+creditCard+"\n")
+    finally:
+        userFile.close()
 
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
@@ -109,7 +142,7 @@ while userInput != exitCondition:
 
     elif userInput == generateCustomerOption: 
         # Only the line below may be editted based on the parameter list and how you design the method return
-        generateCustomerDataFile()
+        generateCustomerDataFile(fName,lName, city, pCode, ccNum)
 
     else:
         print("Please type in a valid option (A number from 1-9)")
