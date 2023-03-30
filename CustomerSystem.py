@@ -16,7 +16,10 @@ def printMenu():
           ''')
 
 
-def validatePostalCode(code):
+def validatePostalCode(code): 
+    # Parameter: Code (should be string) 
+    # Function: Checks parameter value if it is equivalent to the first three characters of a line in postal_codes.csv
+    # Return: If no 3 characters from each line is not equivalent to the value of the parameter, returns False. If one is found, returns True
     PCfile = open("postal_codes.csv", "r")
     for i in PCfile: # Loops through each line in postal code csv file where i contains the text of each line of the iteration
         if i[:3] == code: # Takes the first 3 characters of the line and checks if it is the same to the user inputted code
@@ -27,6 +30,9 @@ def validatePostalCode(code):
 
 
 def validateCreditCard(cardNum):
+    # Parameter: cardNum (should be a string of numbers)
+    # Function: Checks if parameter value passes the Luhn algorithm
+    # Return: If there is anything that is not a number in the parameter's value it will return False. If it does not pass the Luhn algorithm, returns False. If it does, returns True.
     try: # Tries to convert user inputted credit card number to integer to make sure that there are no letters
         int(cardNum)
     except: # If an error occurs usually because there are letters present, returns false
