@@ -17,84 +17,79 @@ def printMenu():
 
 
 def enterCustomerInfo():
-    global fName
-    global lName
-    global city
-    global pCode
-    global ccNum
-
-    fName = str(input("Enter first name: "))
-    lName = str(input("Enter last name: "))
-    city = str(input("Enter city name: "))
+    fName = str(input("Enter first name: ")) # Asks user for name
+    lName = str(input("Enter last name: ")) # Asks user for last name
+    city = str(input("Enter city name: ")) # Asks user for city name
     while True:
-        pCode = str(input("Enter postal code: "))
-        if validatePostalCode(pCode):
-            break
-        print("Invalid postal code. Try again.\n")
-    while True:
-        ccNum = str(input("Enter credit card number: "))
-        if validateCreditCard(ccNum):
-            break
-        print("Invalid credit card number. Try again.\n")
-    
+        pCode = str(input("Enter postal code: ")) # Asks user for postal code
+        if validatePostalCode(pCode): # Calls postal code validation function and returns true or false
+            break # Exits while loop if postal code is valid
+        print("Invalid postal code. Try again.\n") # Tells user the postal code is invalid
+    while True: 
+        ccNum = str(input("Enter credit card number: ")) # Asks user for credit card number
+        if validateCreditCard(ccNum): # Calls credit card validation function and returns true or false
+            break # Exits while loop if postal code is valid
+        print("Invalid credit card number. Try again.\n") # Tells user the credit card number is invalid
+    infos = (fName+"|"+lName+"|"+city+"|"+pCode+"|"+ccNum) # concatenates all information separated by delimiter |
+    return infos
 
 def validatePostalCode(code):
     PCfile = open("postal_codes.csv", "r")
-    for i in PCfile:
-        if i[:3] == code:
-            PCfile.close()
-            return True
+    for i in PCfile: # Loops through each line in postal code csv file where i contains the text of each line of the iteration
+        if i[:3] == code: # Takes the first 3 characters of the line and checks if it is the same to the user inputted code
+            PCfile.close() # Closes file
+            return True # returns true if valid
     PCfile.close()
-    return False
+    return False # returns false in invalid
 
 
 def validateCreditCard(cardNum):
-    try:
+    try: # Tries to convert user inputted credit card number to integer to make sure that there are no letters
         int(cardNum)
-    except:
+    except: # If an error occurs usually because there are letters present, returns false
         return False
     else:
-        z = 0
-        for k in cardNum:
-            z+=1
+        z = 0 # sets z to zero
+        for k in cardNum: # goes through every character in cardNum
+            z+=1 # accumulates for every iteration
         if z < 9:
-            return False
-        initialNum = cardNum[::-1]
-        sum1 = 0
-        x = 0
-        for i in initialNum:
-            if x % 2 == 0:
-                sum1 += int(initialNum[x])
-            x += 1
-        sum2 = 0
-        y = 0
-        for j in initialNum:
-            if y % 2 != 0:
-                if int(initialNum[y])*2 < 9:
-                    sum2 += int(initialNum[y])*2
-                else:
-                    tempNum = str(int(initialNum[y])*2)
-                    sum2 += int(tempNum[0]) + int(tempNum[1])
-            y += 1
-        sumT = str(sum1 + sum2)
-        if sumT[-1] == "0":
-            return True
+            return False # returns false if there are less than 9 characters
+        initialNum = cardNum[::-1] # reverses cardNum and stores in initialNum
+        sum1 = 0 # sets sum1 to zero
+        x = 0 # sets x to zero
+        for i in initialNum: # goes through every character in initialNum
+            if x % 2 == 0: # checks if physical iteration number is even / odd digit place
+                sum1 += int(initialNum[x]) # indexes the iteration number to add to sum
+            x += 1 # accumulates for every iteration
+        sum2 = 0 # sets sum2 to zero
+        y = 0 # sets y to 0
+        for j in initialNum: # goes through every character in initialNum
+            if y % 2 != 0: # checks if physical iteration number is odd / even digit place
+                if int(initialNum[y])*2 <= 9: # indexes the iteration number, multiplies by two and checks if greater than 9
+                    sum2 += int(initialNum[y])*2 # if less than 9, adds number to sum
+                else: # if greater than 9...
+                    tempNum = str(int(initialNum[y])*2) # store product in tempNum as string
+                    sum2 += int(tempNum[0]) + int(tempNum[1]) # add the first index and the second index and add partial sum to sum2
+            y += 1 # accumulates for every iteration
+        sumT = str(sum1 + sum2) # adds both sums of odd digit places and even digit places
+        if sumT[-1] == "0": # checks if the last digit is zero
+            return True # if true returns true
         else:
-            return False
+            return False # if false returns false
 
 
-def generateCustomerDataFile(firstName, lastName, cityName, postalCode, creditCard):
-    NameOfFile = str(input("Enter name of file: "))
-    fileLocation = str(input("Enter location of file: "))
-    fileName = fileLocation+NameOfFile+".csv"
+def generateCustomerDataFile():
+    NameOfFile = str(input("Enter name of file: ")) # asks user for name of file
+    fileLocation = str(input("Enter location of file: ")) # asks user for location/path of file
+    fileName = fileLocation+NameOfFile+".csv" # sets file name to path with custom name and sets file type to csv
     try:
-        userFile = open(fileName, "a")
-        userFile.writelines(firstName+"|"+lastName+"|"+cityName+"|"+postalCode+"|"+creditCard+"\n")
+        userFile = open(fileName, "a") # tries to open file in append mode usually will not work because it does not exist
+        userFile.writelines(totalInfo) # appends totalInfo to file
     except:
-        userFile = open(fileName, "w")
-        userFile.writelines(firstName+"|"+lastName+"|"+cityName+"|"+postalCode+"|"+creditCard+"\n")
+        userFile = open(fileName, "w") # creates file in write mode
+        userFile.writelines(totalInfo) # writes totalInfo to file
     finally:
-        userFile.close()
+        userFile.close() # always closes file
 
 ####################################################################
 #       ADDITIONAL METHODS MAY BE ADDED BELOW IF NECESSARY         #
@@ -124,14 +119,17 @@ while userInput != exitCondition:
     if userInput == enterCustomerOption:
         # Only the line below may be editted based on the parameter list and how you design the method return
         # Any necessary variables may be added to this if section, but nowhere else in the code
-        enterCustomerInfo()
+        totalInfo = enterCustomerInfo() # sets totalInfo to value returned by enterCustomerInfo
 
     elif userInput == generateCustomerOption: 
         # Only the line below may be editted based on the parameter list and how you design the method return
-        generateCustomerDataFile(fName,lName, city, pCode, ccNum)
+        try:
+            generateCustomerDataFile() # tries to generate file
+        except NameError: # if NameError occurs because enterCustomerInfo has not been called before and totalInfo has no value
+            print("Please enter customer info first") # tells user to enter customer info prior to generating file
 
-    elif userInput == exitCondition:
-        continue
+    elif userInput == exitCondition: # checks if userInput is 9 (exitCondition)
+        continue # goes to next iteration of loop where the comparison is false to exit loop
 
     else:
         print("Please type in a valid option (A number from 1-9)")
