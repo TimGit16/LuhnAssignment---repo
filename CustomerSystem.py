@@ -16,23 +16,6 @@ def printMenu():
           ''')
 
 
-def enterCustomerInfo():
-    fName = str(input("Enter first name: ")) # Asks user for name
-    lName = str(input("Enter last name: ")) # Asks user for last name
-    city = str(input("Enter city name: ")) # Asks user for city name
-    while True:
-        pCode = str(input("Enter postal code: ")) # Asks user for postal code
-        if validatePostalCode(pCode): # Calls postal code validation function and returns true or false
-            break # Exits while loop if postal code is valid
-        print("Invalid postal code. Try again.\n") # Tells user the postal code is invalid
-    while True: 
-        ccNum = str(input("Enter credit card number: ")) # Asks user for credit card number
-        if validateCreditCard(ccNum): # Calls credit card validation function and returns true or false
-            break # Exits while loop if postal code is valid
-        print("Invalid credit card number. Try again.\n") # Tells user the credit card number is invalid
-    infos = (fName+"|"+lName+"|"+city+"|"+pCode+"|"+ccNum) # concatenates all information separated by delimiter |
-    return infos
-
 def validatePostalCode(code):
     PCfile = open("postal_codes.csv", "r")
     for i in PCfile: # Loops through each line in postal code csv file where i contains the text of each line of the iteration
@@ -76,6 +59,24 @@ def validateCreditCard(cardNum):
             return True # if true returns true
         else:
             return False # if false returns false
+
+
+def enterCustomerInfo():
+    fName = str(input("Enter first name: ")) # Asks user for name
+    lName = str(input("Enter last name: ")) # Asks user for last name
+    city = str(input("Enter city name: ")) # Asks user for city name
+    while True:
+        pCode = str(input("Enter postal code: ")) # Asks user for postal code
+        if validatePostalCode(pCode): # Calls postal code validation function and returns true or false
+            break # Exits while loop if postal code is valid
+        print("Invalid postal code. Try again.\n") # Tells user the postal code is invalid
+    while True: 
+        ccNum = str(input("Enter credit card number: ")) # Asks user for credit card number
+        if validateCreditCard(ccNum): # Calls credit card validation function and returns true or false
+            break # Exits while loop if postal code is valid
+        print("Invalid credit card number. Try again.\n") # Tells user the credit card number is invalid
+    infos = (fName+"|"+lName+"|"+city+"|"+pCode+"|"+ccNum) # concatenates all information separated by delimiter |
+    return infos
 
 
 def generateCustomerDataFile():
