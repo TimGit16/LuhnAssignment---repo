@@ -17,9 +17,11 @@ def printMenu():
 
 
 def validatePostalCode(code): 
+    '''
     # Parameter: Code (should be string) 
     # Function: Checks parameter value if it is equivalent to the first three characters of a line in postal_codes.csv
     # Return: If no 3 characters from each line is not equivalent to the value of the parameter, returns False. If one is found, returns True
+    '''
     PCfile = open("postal_codes.csv", "r")
     for i in PCfile: # Loops through each line in postal code csv file where i contains the text of each line of the iteration
         if i[:3] == code: # Takes the first 3 characters of the line and checks if it is the same to the user inputted code
@@ -30,9 +32,11 @@ def validatePostalCode(code):
 
 
 def validateCreditCard(cardNum):
-    # Parameter: cardNum (should be a string of numbers)
-    # Function: Checks if parameter value passes the Luhn algorithm
-    # Return: If there is anything that is not a number in the parameter's value it will return False. If it does not pass the Luhn algorithm, returns False. If it does, returns True.
+    '''
+    Parameter: cardNum (should be a string of numbers)
+    Function: Checks if parameter value passes the Luhn algorithm
+    Return: If there is anything that is not a number in the parameter's value it will return False. If it does not pass the Luhn algorithm, returns False. If it does, returns True.
+    '''
     try: # Tries to convert user inputted credit card number to integer to make sure that there are no letters
         int(cardNum)
     except: # If an error occurs usually because there are letters present, returns false
@@ -68,6 +72,10 @@ def validateCreditCard(cardNum):
 
 
 def enterCustomerInfo():
+    '''
+    Function: Prompts user to enter customer information and calls functions to validate certain values
+    Return: If all values are valid, returns string of all entered info
+    '''
     fName = str(input("Enter first name: ")) # Asks user for name
     lName = str(input("Enter last name: ")) # Asks user for last name
     city = str(input("Enter city name: ")) # Asks user for city name
@@ -86,6 +94,7 @@ def enterCustomerInfo():
 
 
 def generateCustomerDataFile():
+    """Function: Creates a csv file writing or appending the value stored in variable totalInfo depending if file path already exists"""
     NameOfFile = str(input("Enter name of file: ")) # asks user for name of file
     fileLocation = str(input("Enter location of file: ")) # asks user for location/path of file
     fileName = fileLocation+NameOfFile+".csv" # sets file name to path with custom name and sets file type to csv
