@@ -89,7 +89,7 @@ def enterCustomerInfo():
         if validateCreditCard(ccNum): # Calls credit card validation function and returns true or false
             break # Exits while loop if postal code is valid
         print("Invalid credit card number. Try again.\n") # Tells user the credit card number is invalid
-    infos = (fName+"|"+lName+"|"+city+"|"+pCode+"|"+ccNum) # concatenates all information separated by delimiter |
+    infos = (str(enterInfoCount)+"|"+fName+"|"+lName+"|"+city+"|"+pCode+"|"+ccNum) # concatenates all information separated by delimiter |
     return infos
 
 
@@ -100,7 +100,7 @@ def generateCustomerDataFile():
     fileName = fileLocation+NameOfFile+".csv" # sets file name to path with custom name and sets file type to csv
     try:
         userFile = open(fileName, "a") # tries to open file in append mode usually will not work because it does not exist
-        userFile.writelines(totalInfo) # appends totalInfo to file
+        userFile.writelines("\n"+totalInfo) # appends totalInfo to file
     except:
         userFile = open(fileName, "w") # creates file in write mode
         userFile.writelines(totalInfo) # writes totalInfo to file
@@ -126,7 +126,7 @@ generateCustomerOption = "2"
 exitCondition = "9"
 
 # More variables for the main may be declared in the space below
-
+enterInfoCount = 0 # sets enterInfoCount variable to zero, tracks how many times the function enterCustomerInfo() has been called
 
 while userInput != exitCondition:
     printMenu()                 # Printing out the main menu
@@ -135,6 +135,7 @@ while userInput != exitCondition:
     if userInput == enterCustomerOption:
         # Only the line below may be editted based on the parameter list and how you design the method return
         # Any necessary variables may be added to this if section, but nowhere else in the code
+        enterInfoCount += 1 # adds 1 to enterInfoCount signifying that 
         totalInfo = enterCustomerInfo() # sets totalInfo to value returned by enterCustomerInfo
 
     elif userInput == generateCustomerOption: 
