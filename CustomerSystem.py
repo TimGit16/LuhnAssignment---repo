@@ -96,7 +96,7 @@ def enterCustomerInfo():
 def generateCustomerDataFile():
     """Function: Creates a csv file writing or appending the value stored in variable totalInfo depending if file path already exists"""
     NameOfFile = str(input("Enter name of file: ")) # asks user for name of file
-    fileLocation = str(input("Enter location of file: ")) # asks user for location/path of file
+    fileLocation = str(input("Enter location/path of file: ")) # asks user for location/path of file
     fileName = fileLocation+NameOfFile+".csv" # sets file name to path with custom name and sets file type to csv
     try:
         userFile = open(fileName, "a") # tries to open file in append mode usually will not work because it does not exist
